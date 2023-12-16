@@ -40,132 +40,54 @@ public class ListaSimple {
         temp2 = null;
     }
 
-    // Inserta un nuevo nodo con un valor específico entre dos nodos existentes
-    public boolean InsertaEntreNodos(String nombre, String buscado) {
-        Nodo temp = new Nodo();
-        temp.name = nombre;
-        Nodo temp2 = this.top;
-
-        while ((temp2 != null) && temp2.name.equals(buscado) == false) {
-            temp2 = temp2.next;
-        }
-
-        if (temp2 != null) { // Nodo buscado se encontró
-            temp.next = temp2.next;
-            temp2.next = temp;
-            temp = null;
-            temp2 = null;
-            return true;
-        } else
-            return false;
-    }
-
-    // Imprime los valores de los nodos en la lista
-    public void imprimir() {
-        for (Nodo temp = this.top; temp != null; temp = temp.next) {
-            System.out.print("[ " + temp.name + " ] -> ");
-        }
-
-        System.out.print("[X]\n");
-    }
-
-    // Devuelve una representación en cadena de la lista
-    public String toString() {
-        String cadAux = "";
-        for (Nodo temp = this.top; temp != null; temp = temp.next) {
-            cadAux += "[ " + temp.name + " ] -> ";
-        }
-
-        cadAux += "[X]\n";
-
-        return cadAux;
-    }
-
-    // Métodos de borrado
-
-    // Borra el primer nodo de la lista
-    public void BorrarPrimerNodo() {
-        this.top = this.top.next;
-    }
-
-    // Borra cualquier nodo que no sea el primero
-    public boolean BorrarCualquierNodo(String buscado) {
-        Nodo temp = this.top;
-
-        while ((temp != null) && temp.name.equals(buscado) == false) {
+    // Buscar un nodo por el valor de su campo clave y devolver una referencia
+    public Nodo BuscarNodoPorValor(String valor) {
+        Nodo temp = top;
+        while (temp != null) {
+            if (temp.name.equals(valor)) {
+                return temp;
+            }
             temp = temp.next;
         }
-
-        if (temp != null) { 
-            temp.next = temp.next.next;
-            temp = null;
-            return true;
-        } else
-            return false;
-    }
-
-    public Nodo BuscarNodoPorValor(String valorBuscado) {
-        Nodo temp = this.top;
-
-        while (temp != null && !temp.name.equals(valorBuscado)) {
-            temp = temp.next;
-        }
-
-        return temp;
+        return null; // No se encontró el nodo con el valor especificado
     }
 
     // Buscar un nodo por su campo clave e insertar un nuevo nodo después de él
     public boolean InsertarDespuesDeNodo(String valorBuscado, String nuevoValor) {
-        Nodo temp = BuscarNodoPorValor(valorBuscado);
+        Nodo nodoBuscado = BuscarNodoPorValor(valorBuscado);
 
-        if (temp != null) {
+        if (nodoBuscado != null) {
             Nodo nuevoNodo = new Nodo();
             nuevoNodo.name = nuevoValor;
-            nuevoNodo.next = temp.next;
-            temp.next = nuevoNodo;
-            return true;
+            nuevoNodo.next = nodoBuscado.next;
+            nodoBuscado.next = nuevoNodo;
+            return true; // Inserción exitosa
         } else {
-            return false; 
+            return false; // No se encontró el nodo con el valor especificado
         }
     }
- // Intercambiar un nodo por otro buscado
- public boolean InterCambiarNodos(String valorNodo1, String valorNodo2) {
-    Nodo nodo1Prev = null;
-    Nodo nodo1 = this.top;
 
-    while (nodo1 != null && !nodo1.name.equals(valorNodo1)) {
-        nodo1Prev = nodo1;
-        nodo1 = nodo1.next;
-    }
+    // Intercambiar un nodo por otro buscado
+    public void InterCambiarNodos(String valorNodo1, String valorNodo2) {
+        Nodo nodo1 = BuscarNodoPorValor(valorNodo1);
+        Nodo nodo2 = BuscarNodoPorValor(valorNodo2);
 
-    Nodo nodo2Prev = null;
-    Nodo nodo2 = this.top;
-
-    while (nodo2 != null && !nodo2.name.equals(valorNodo2)) {
-        nodo2Prev = nodo2;
-        nodo2 = nodo2.next;
-    }
-
-    if (nodo1 != null && nodo2 != null) {
-        if (nodo1Prev != null) {
-            nodo1Prev.next = nodo2;
-        } else {
-            this.top = nodo2;
+        if (nodo1 != null && nodo2 != null) {
+            // Intercambiar los valores de los nodos
+            String temp = nodo1.name;
+            nodo1.name = nodo2.name;
+            nodo2.name = temp;
         }
-
-        if (nodo2Prev != null) {
-            nodo2Prev.next = nodo1;
-        } else {
-            this.top = nodo1;
+        // No hacer nada si alguno de los nodos no se encuentra
+    }
+    public void Imprimir() {
+        Nodo temp = top;
+        while (temp != null) {
+            System.out.print(temp.name + " ");
+            temp = temp.next;
         }
-
-        Nodo temp = nodo1.next;
-        nodo1.next = nodo2.next;
-        nodo2.next = temp;
-
-        return true;
-    } else {
-        return false; // Al menos uno de los nodos no fue encontrado
+        System.out.println(); // Salto de línea al final
     }
 }
-}
+      
+    
