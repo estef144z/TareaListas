@@ -126,7 +126,7 @@ public class ListaDoble {
     // Adecuación del método de borrado: borrarCualquierNodo()
     
     
-      // Buscar un nodo por el valor de su campo clave y devolver una referencia
+    // Buscar un nodo por el valor de su campo clave y devolver una referencia
     public Node BuscarNodoPorValor(String valorBuscado) {
         Node temp = this.topForward;
 
@@ -139,57 +139,43 @@ public class ListaDoble {
 
     // Buscar un nodo por su campo clave e insertar un nuevo nodo después de él
     public boolean InsertarDespuesDeNodo(String valorBuscado, String nuevoValor) {
-        Node temp = BuscarNodoPorValor(valorBuscado);
+        Node nodoBuscado = BuscarNodoPorValor(valorBuscado);
 
-        if (temp != null) {
+        if (nodoBuscado != null) {
             Node nuevoNodo = new Node();
             nuevoNodo.name = nuevoValor;
 
-            nuevoNodo.next = temp.next;
-            if (temp.next != null) {
-                temp.next.previous = nuevoNodo;
+            nuevoNodo.next = nodoBuscado.next;
+            if (nodoBuscado.next != null) {
+                nodoBuscado.next.previous = nuevoNodo;
             }
 
-            temp.next = nuevoNodo;
-            nuevoNodo.previous = temp;
+            nodoBuscado.next = nuevoNodo;
+            nuevoNodo.previous = nodoBuscado;
 
-            return true;
+            return true; // Inserción exitosa
         } else {
-            return false; // Nodo buscado no encontrado
+            return false; // No se encontró el nodo con el valor especificado
         }
     }
 
     // Intercambiar un nodo por otro buscado
-    public boolean IntercambiarNodos(String valorNodo1, String valorNodo2) {
+    public void InterCambiarNodos(String valorNodo1, String valorNodo2) {
         Node nodo1 = BuscarNodoPorValor(valorNodo1);
         Node nodo2 = BuscarNodoPorValor(valorNodo2);
 
         if (nodo1 != null && nodo2 != null) {
-            // Intercambiar nodos
-            Node temp = nodo1.next;
-            nodo1.next = nodo2.next;
-            nodo2.next = temp;
-
-            temp = nodo1.previous;
-            nodo1.previous = nodo2.previous;
-            nodo2.previous = temp;
-
-            if (nodo1.previous != null) {
-                nodo1.previous.next = nodo1;
-            } else {
-                this.topForward = nodo1;
-            }
-
-            if (nodo2.previous != null) {
-                nodo2.previous.next = nodo2;
-            } else {
-                this.topForward = nodo2;
-            }
-
-            return true;
-        } else {
-            return false; // Al menos uno de los nodos no fue encontrado
+            // Intercambiar los valores de los nodos
+            String temp = nodo1.name;
+            nodo1.name = nodo2.name;
+            nodo2.name = temp;
         }
+        // No hacer nada si alguno de los nodos no se encuentra
     }
 
 }
+
+        
+
+          
+        
