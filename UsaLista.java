@@ -9,23 +9,19 @@ public class UsaLista {
         lista.InsertaAlFinal("B");
         lista.InsertaAlFinal("A");
 
-        // Imprimir la lista antes de realizar las operaciones
-        System.out.println("Lista original:");
-        lista.imprimir();
-
+     
+        // Buscar un nodo por el valor de su campo clave
         Nodo nodoEncontrado = lista.BuscarNodoPorValor("D");
         System.out.println("Nodo encontrado: " + nodoEncontrado);
 
-        // 2. Buscar un nodo por su campo clave e insertar un nuevo nodo después de él
+        // Buscar un nodo por su campo clave e insertar un nuevo nodo después de él
         lista.InsertarDespuesDeNodo("B", "E");
         System.out.println("\nLista después de insertar nuevo nodo:");
-        lista.imprimir();
+        lista.Imprimir();
 
-        // 3. Intercambiar un nodo por otro buscado
-        lista.InterCambiarNodos( "C", "A");
+        // Intercambiar un nodo por otro buscado
+        lista.InterCambiarNodos("C", "A");
         System.out.println("\nLista después de intercambiar nodos:");
-        lista.imprimir();
-
-
+        lista.Imprimir();
     }
 }
